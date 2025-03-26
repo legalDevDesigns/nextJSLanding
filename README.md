@@ -15,7 +15,7 @@ A modern, responsive landing page built with Next.js and Tailwind CSS.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/nextJSLanding.git
+git clone https://github.com/legalDevDesigns/nextJSLanding.git
 ```
 
 2. Install dependencies:
@@ -48,4 +48,7 @@ This site is automatically deployed to GitHub Pages when you push to the main br
 - Next.js
 - Tailwind CSS
 - React
-- GitHub Pages 
+- GitHub Pages
+
+---
+*Last updated: March 26, 2024* 

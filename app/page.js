@@ -16,16 +16,24 @@ export default function Home() {
     e.preventDefault();
     
     try {
+      const formBody = new URLSearchParams({
+        'form-name': 'contact',
+        ...formData
+      }).toString();
+      
+      console.log('Submitting form with data:', formBody);
+      
       const response = await fetch('/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: new URLSearchParams(formData).toString(),
+        body: formBody
       });
 
+      console.log('Response status:', response.status);
+      
       if (response.ok) {
-        // Clear form
         setFormData({
           name: '',
           email: '',
@@ -34,7 +42,9 @@ export default function Home() {
         });
         alert('Thank you for your message! We will get back to you soon.');
       } else {
-        throw new Error('Form submission failed');
+        const responseText = await response.text();
+        console.error('Form submission error:', responseText);
+        throw new Error('Form submission failed. Please try again.');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -48,6 +58,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
+      {/* Hidden form for Netlify */}
+      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <textarea name="message"></textarea>
+      </form>
+
       {/* Top Bar */}
       <div className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-2 px-4">
         <div className="container mx-auto flex justify-between items-center">
@@ -59,121 +77,80 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center">
-        <div className="absolute inset-0">
+      <section className="relative h-screen flex items-center justify-center">
+        <div className="absolute inset-0 z-0">
           <Image
             src={siteConfig.hero.backgroundImage}
-            alt="Hero Background"
+            alt="Hero background"
             fill
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+          <div className="absolute inset-0 bg-black/50"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left side - Text content */}
-            <div className="text-white">
-              <h1 className="text-5xl font-bold mb-6 leading-tight">
-                {siteConfig.hero.title}
-              </h1>
-              <p className="text-xl mb-8 text-blue-100">
-                {siteConfig.hero.subtitle}
-              </p>
-              <div className="space-y-4">
-                <a
-                  href={`tel:${siteConfig.business.phone}`}
-                  className="inline-flex items-center bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-blue-50 transition-all duration-300"
-                >
-                  <span className="text-2xl mr-2">📞</span>
-                  Call Now
-                </a>
-                <p className="text-blue-100 text-lg">
-                  Or fill out the form to get started
-                </p>
-              </div>
+        <div className="container mx-auto px-4 z-10 text-center text-white">
+          <h1 className="text-5xl font-bold mb-4">{siteConfig.hero.title}</h1>
+          <p className="text-xl mb-8">{siteConfig.hero.subtitle}</p>
+          <form 
+            name="contact"
+            method="POST"
+            netlify="true"
+            netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
+            className="max-w-md mx-auto bg-white/10 backdrop-blur-sm p-8 rounded-lg"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <p hidden>
+              <label>
+                Don't fill this out if you're human: <input name="bot-field" />
+              </label>
+            </p>
+            <h2 className="text-2xl font-semibold mb-6 text-white">{siteConfig.hero.formTitle}</h2>
+            <div className="space-y-4">
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="Your Name"
+                required
+                className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+              />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                placeholder="Your Email"
+                required
+                className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+              />
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                placeholder="Your Phone"
+                required
+                className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+              />
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                placeholder="Your Message"
+                required
+                rows="4"
+                className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+              ></textarea>
             </div>
-
-            {/* Right side - Form */}
-            <div className="bg-white/95 backdrop-blur-sm p-8 rounded-lg shadow-2xl">
-              <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-                {siteConfig.hero.formTitle}
-              </h2>
-              <form 
-                name="contact"
-                method="POST"
-                data-netlify="true"
-                data-netlify-honeypot="bot-field"
-                onSubmit={handleSubmit} 
-                className="space-y-4"
-              >
-                <input type="hidden" name="form-name" value="contact" />
-                <p className="hidden">
-                  <label>
-                    Don't fill this out if you're human: <input name="bot-field" />
-                  </label>
-                </p>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Your Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Your Phone
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Your Message
-                  </label>
-                  <textarea
-                    name="message"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    rows="4"
-                    value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    required
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-bold hover:bg-blue-700 transition-all duration-300"
-                >
-                  Submit
-                </button>
-              </form>
-            </div>
-          </div>
+            <button
+              type="submit"
+              className="w-full mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Send Message
+            </button>
+          </form>
         </div>
       </section>
 

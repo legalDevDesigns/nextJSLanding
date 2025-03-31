@@ -1,4 +1,4 @@
-const basePath = process.env.NODE_ENV === 'production' ? '/nextJSLanding' : '';
+const basePath = '';  // Remove the conditional basePath for Netlify
 
 export const siteConfig = {
   business: {
@@ -10,7 +10,7 @@ export const siteConfig = {
   hero: {
     title: "Welcome to Your Business",
     subtitle: "Your trusted partner in excellence",
-    backgroundImage: `${basePath}/images/1hero.jpg`,
+    backgroundImage: `/images/1hero.jpg`,
     formTitle: "Request a Quote",
     formPlaceholder: "Enter your details",
   },
@@ -20,19 +20,19 @@ export const siteConfig = {
         title: "Business Insurance",
         description: "Comprehensive coverage for your business needs",
         icon: "🏢",
-        image: `${basePath}/images/Business-Insurance-2.jpg`
+        image: `/images/Business-Insurance-2.jpg`
       },
       {
         title: "Condo Insurance",
         description: "Protection for your condominium property",
         icon: "🏠",
-        image: `${basePath}/images/Condo-Insurance.jpg`
+        image: `/images/Condo-Insurance.jpg`
       },
       {
         title: "Life Insurance",
         description: "Secure your family's future",
         icon: "❤️",
-        image: `${basePath}/images/Life-Insurance-13.jpg`
+        image: `/images/Life-Insurance-13.jpg`
       },
     ],
     secondary: [
@@ -40,57 +40,57 @@ export const siteConfig = {
         title: "Quality",
         description: "Premium service standards",
         icon: "⭐",
-        image: `${basePath}/images/Business-Insurance-2.jpg`
+        image: `/images/Business-Insurance-2.jpg`
       },
       {
         title: "Experience",
         description: "Years of industry expertise",
         icon: "🎯",
-        image: `${basePath}/images/Condo-Insurance.jpg`
+        image: `/images/Condo-Insurance.jpg`
       },
       {
         title: "Innovation",
         description: "Cutting-edge solutions",
         icon: "💡",
-        image: `${basePath}/images/Life-Insurance-13.jpg`
+        image: `/images/Life-Insurance-13.jpg`
       },
       {
         title: "Reliability",
         description: "Consistent performance",
         icon: "🛡️",
-        image: `${basePath}/images/Business-Insurance-2.jpg`
+        image: `/images/Business-Insurance-2.jpg`
       },
       {
         title: "Efficiency",
         description: "Streamlined processes",
         icon: "⚡",
-        image: `${basePath}/images/Condo-Insurance.jpg`
+        image: `/images/Condo-Insurance.jpg`
       },
       {
         title: "Results",
         description: "Proven track record",
         icon: "📈",
-        image: `${basePath}/images/Life-Insurance-13.jpg`
+        image: `/images/Life-Insurance-13.jpg`
       },
     ],
   },
   about: {
     title: "About Us",
     description: "We are dedicated to providing exceptional service and solutions to our clients. With years of experience and a commitment to excellence, we deliver results that exceed expectations.",
-    image: `${basePath}/images/3aboutUs.jpg`,
+    image: `/images/3aboutUs.jpg`,
   },
   testimonials: [
     {
       quote: "Outstanding service and exceptional results!",
       author: "John Doe",
       position: "CEO, Company Name",
-      avatar: `${basePath}/images/Business-Insurance-2.jpg`
+      avatar: `/images/Business-Insurance-2.jpg`
     },
     {
       quote: "The best in the business, hands down.",
       author: "Jane Smith",
       position: "Director, Another Company",
-      avatar: `${basePath}/images/Condo-Insurance.jpg`
+      avatar: `/images/Condo-Insurance.jpg`
     },
   ],
   cta: {
@@ -98,13 +98,13 @@ export const siteConfig = {
       title: "Ready to Get Started?",
       subtitle: "Contact us today for a free consultation",
       buttonText: "Request a Quote",
-      backgroundImage: `${basePath}/images/1hero.jpg`
+      backgroundImage: `/images/1hero.jpg`
     },
     secondary: {
       title: "Transform Your Business",
       subtitle: "Let's work together to achieve your goals",
       buttonText: "Get in Touch",
-      backgroundImage: `${basePath}/images/3aboutUs.jpg`
+      backgroundImage: `/images/3aboutUs.jpg`
     },
   },
   map: {

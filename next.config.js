@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -10,9 +9,13 @@ const nextConfig = {
       },
     ],
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/nextJSLanding' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/nextJSLanding/' : '',
   trailingSlash: true,
+  optimizeFonts: true,
+  swcMinify: true,
+  reactStrictMode: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
 }
 
 module.exports = nextConfig 

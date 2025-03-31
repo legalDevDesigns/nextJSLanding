@@ -67,7 +67,7 @@ export default function Home() {
       </form>
 
       {/* Top Bar */}
-      <div className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-2 px-4">
+      <div className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-2 px-4 fixed w-full z-50">
         <div className="container mx-auto flex justify-between items-center">
           <span className="font-bold">{siteConfig.business.name}</span>
           <a href={`tel:${siteConfig.business.phone}`} className="hover:text-blue-200">
@@ -77,7 +77,7 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center">
+      <section className="relative min-h-screen flex items-center justify-center pt-16">
         <div className="absolute inset-0 z-0">
           <Image
             src={siteConfig.hero.backgroundImage}
@@ -89,8 +89,8 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/50"></div>
         </div>
         <div className="container mx-auto px-4 z-10 text-center text-white">
-          <h1 className="text-5xl font-bold mb-4">{siteConfig.hero.title}</h1>
-          <p className="text-xl mb-8">{siteConfig.hero.subtitle}</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{siteConfig.hero.title}</h1>
+          <p className="text-lg md:text-xl mb-8">{siteConfig.hero.subtitle}</p>
           <form 
             name="contact"
             method="POST"

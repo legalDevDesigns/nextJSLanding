@@ -15,10 +15,7 @@ const nextConfig = {
   reactStrictMode: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
-  },
-  // Netlify specific settings
-  target: 'server',
-  distDir: '.next'
+  }
 }
 
 module.exports = nextConfig 

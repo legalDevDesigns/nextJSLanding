@@ -12,10 +12,34 @@ export default function Home() {
     message: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
+    
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(formData).toString(),
+      });
+
+      if (response.ok) {
+        // Clear form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          message: '',
+        });
+        alert('Thank you for your message! We will get back to you soon.');
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting your message. Please try again.');
+    }
   };
 
   const scrollToTop = () => {
@@ -75,16 +99,31 @@ export default function Home() {
               <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
                 {siteConfig.hero.formTitle}
               </h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form 
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                onSubmit={handleSubmit} 
+                className="space-y-4"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <p className="hidden">
+                  <label>
+                    Don't fill this out if you're human: <input name="bot-field" />
+                  </label>
+                </p>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Your Name
                   </label>
                   <input
                     type="text"
+                    name="name"
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    required
                   />
                 </div>
                 <div>
@@ -93,9 +132,11 @@ export default function Home() {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    required
                   />
                 </div>
                 <div>
@@ -104,9 +145,11 @@ export default function Home() {
                   </label>
                   <input
                     type="tel"
+                    name="phone"
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    required
                   />
                 </div>
                 <div>
@@ -114,16 +157,19 @@ export default function Home() {
                     Your Message
                   </label>
                   <textarea
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-32"
+                    name="message"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    rows="4"
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  />
+                    required
+                  ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-bold hover:from-blue-700 hover:to-blue-800 transition-all duration-300"
+                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-bold hover:bg-blue-700 transition-all duration-300"
                 >
-                  {siteConfig.hero.formTitle}
+                  Submit
                 </button>
               </form>
             </div>

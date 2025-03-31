@@ -88,69 +88,81 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-black/50"></div>
         </div>
-        <div className="container mx-auto px-4 z-10 text-center text-white">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{siteConfig.hero.title}</h1>
-          <p className="text-lg md:text-xl mb-8">{siteConfig.hero.subtitle}</p>
-          <form 
-            name="contact"
-            method="POST"
-            netlify="true"
-            netlify-honeypot="bot-field"
-            onSubmit={handleSubmit}
-            className="max-w-md mx-auto bg-white/10 backdrop-blur-sm p-8 rounded-lg"
-          >
-            <input type="hidden" name="form-name" value="contact" />
-            <p hidden>
-              <label>
-                Don't fill this out if you're human: <input name="bot-field" />
-              </label>
-            </p>
-            <h2 className="text-2xl font-semibold mb-6 text-white">{siteConfig.hero.formTitle}</h2>
-            <div className="space-y-4">
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="Your Name"
-                required
-                className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-              />
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="Your Email"
-                required
-                className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-              />
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="Your Phone"
-                required
-                className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-              />
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="Your Message"
-                required
-                rows="4"
-                className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-              ></textarea>
+        <div className="container mx-auto px-4 z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="text-white text-left">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">{siteConfig.hero.title}</h1>
+              <p className="text-lg md:text-xl mb-8">{siteConfig.hero.subtitle}</p>
+              <a
+                href={`tel:${siteConfig.business.phone}`}
+                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors duration-300"
+              >
+                Call Now
+              </a>
             </div>
-            <button
-              type="submit"
-              className="w-full mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Send Message
-            </button>
-          </form>
+            <div className="flex justify-center md:justify-end">
+              <form 
+                name="contact"
+                method="POST"
+                netlify="true"
+                netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+                className="w-full max-w-md bg-white/10 backdrop-blur-sm p-8 rounded-lg"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <p hidden>
+                  <label>
+                    Don't fill this out if you're human: <input name="bot-field" />
+                  </label>
+                </p>
+                <h2 className="text-2xl font-semibold mb-6 text-white">{siteConfig.hero.formTitle}</h2>
+                <div className="space-y-4">
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="Your Name"
+                    required
+                    className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="Your Email"
+                    required
+                    className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  />
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="Your Phone"
+                    required
+                    className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  />
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Your Message"
+                    required
+                    rows="4"
+                    className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </section>
 
